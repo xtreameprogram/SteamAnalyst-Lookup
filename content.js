@@ -112,14 +112,16 @@ function csgotraders() {
 }
 
 function csgolounge() {
-    $('.smallimg').click(function(event) {
-        if (findElement(weapons.weapons, "value", $(this).attr("alt")).data) {
-            chrome.runtime.sendMessage({
-                "new_tab": findElement(weapons.weapons, "value", $(this).attr("alt")).data
-            });
-        }
-        console.log(findElement(weapons.weapons, "value", $(this).attr("alt")).data);
-    });
+  if (location.pathname !== "/search") {
+        $('.smallimg').click(function(event) {
+            if (findElement(weapons.weapons, "value", $(this).attr("alt")).data) {
+                chrome.runtime.sendMessage({
+                    "new_tab": findElement(weapons.weapons, "value", $(this).attr("alt")).data
+                });
+            }
+            console.log(findElement(weapons.weapons, "value", $(this).attr("alt")).data);
+        });
+      }
 }
 
 
@@ -155,7 +157,7 @@ Array.prototype.arrToString = function() {
     return this.join('');
 };
 
-Number.prototype.commafy = function () {
+Number.prototype.commafy = function() {
     var str = this.toString().split('.');
     if (str[0].length >= 4) {
         str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
